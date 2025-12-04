@@ -1,19 +1,20 @@
 #ifndef AERONAVES_H
 #define AERONAVES_H
-#define MAX_AERONAVES 100
 
+typedef struct aeronave{
+    char id[20];          
+    char modelo[50];     
+    char fabricante[50];  
+    char matricula[20];   
+    int ano;              
+    char tipo[20];       
+    int capacidade;       
+    struct aeronave *prox;
+}Aeronave;
 
-typedef struct {
-    int id;
-    char modelo[50];;
-} Aeronave;
-
-
-void inicializarAernaves();
-void cadastrarAeronave();
-void listarAeronaves();
-void removerAeronave();
-void buscarAeronave();
-void editarAeronave();
+void cadastrarAeronave(Aeronave **lista);
+void listarAeronaves(Aeronave *lista);
+void salvarAeronaves(Aeronave *lista);
+void carregarAeronaves(Aeronave **lista);
 
 #endif
