@@ -10,8 +10,8 @@ void menuAeronaves(Aeronave **lista){
         printf("\n--- MENU AERONAVES ---\n");
         printf("1. Cadastrar aeronave\n");
         printf("2. Listar aeronaves\n");
-        printf("3. Salvar binário\n");
-        printf("4. Carregar binário\n");
+        printf("3. Salvar binario\n");
+        printf("4. Carregar binario\n");
         printf("0. Voltar\n> ");
         scanf("%d",&op); getchar();
         switch(op){
@@ -29,8 +29,8 @@ void menuRotas(Rota **lista){
         printf("\n--- MENU ROTAS ---\n");
         printf("1. Cadastrar rota\n");
         printf("2. Listar rotas\n");
-        printf("3. Salvar binário\n");
-        printf("4. Carregar binário\n");
+        printf("3. Salvar binario\n");
+        printf("4. Carregar binario\n");
         printf("0. Voltar\n> ");
         scanf("%d",&op); getchar();
         switch(op){
@@ -47,7 +47,7 @@ int main(){
     Rota *listaR = NULL;
     int op;
     do{
-        printf("\n=== SISTEMA FROTA AÉREA ===\n");
+        printf("\n=== SISTEMA FROTA AEREA ===\n");
         printf("1. Aeronaves\n");
         printf("2. Rotas\n");
         printf("0. Sair\n> ");
