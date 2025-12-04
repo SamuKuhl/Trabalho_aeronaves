@@ -1,52 +1,54 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "aeronaves.h"
-#include "utils.h"
 
-static Aeronave frota[MAX_AERONAVES];
-static int totalAeronaves = 0;
+void cadastrarAeronave(Aeronave **lista){
+    Aeronave *n = malloc(sizeof(Aeronave));
 
-void inicializarAeronaves() {
-    totalAeronaves = 0;
+    printf("ID: "); fgets(n->id,20,stdin); strtok(n->id,"\n");
+    printf("Modelo: "); fgets(n->modelo,50,stdin); strtok(n->modelo,"\n");
+    printf("Fabricante: "); fgets(n->fabricante,50,stdin); strtok(n->fabricante,"\n");
+    printf("Matrícula/Prefixo: "); fgets(n->matricula,20,stdin); strtok(n->matricula,"\n");
+    printf("Ano de fabricação: "); scanf("%d",&n->ano); getchar();
+    printf("Tipo (carga/passageiro): "); fgets(n->tipo,20,stdin); strtok(n->tipo,"\n");
+    printf("Capacidade de passageiros: "); scanf("%d",&n->capacidade); getchar();
+
+    n->prox = *lista;
+    *lista = n;
 }
 
-void cadastrarAeronave() {
-    if (totalAeronaves >= MAX_AERONAVES) {
-        printf("Limite máximo atingido \n");
-        return;
-    }
-
-Aeronave a;
-a.id = totalAeronaves + 1;
-
-printf("Modelo da aeronave: ");
-lerString(a.modelo, 50);
-
-frota[totalAeronaves++] = a;
-
-printf("Aeronave cadastrada \n");
-}
-
-void listarAeronaves() {
-    if (totalAeronaves == 0) {
-        printf("Nenhuma aeronave cadastrada\n");
-        return;
-    }
-
-    for(int i = 0; i < totalAeronaves; i++){
-        printf("ID: %d | Modelo: %s\n", frota[i].id, frota[i].modelo);
-
+void listarAeronaves(Aeronave *l){
+    while(l){
+        printf("[%s] %s - %s - %s - Ano: %d - Tipo: %s - %d lugares\n",
+               l->id, l->modelo, l->fabricante, l->matricula,
+               l->ano, l->tipo, l->capacidade);
+        l=l->prox;
     }
 }
 
-void removerAeronave(){
-
+void salvarAeronaves(Aeronave *l){
+    FILE *f = fopen("aeronaves.bin","wb");
+    if(!f){ printf("Erro ao abrir arquivo.\n"); return; }
+    while(l){
+        fwrite(l,sizeof(Aeronave),1,f);
+        l=l->prox;
+    }
+    fclose(f);
+    printf("Salvo.\n");
 }
 
-void buscarAeronave(){
-
-}
-
-void editarAeronave(){
-    
+void carregarAeronaves(Aeronave **lista){
+    FILE *f = fopen("aeronaves.bin","rb");
+    if(!f){ printf("Erro ao abrir arquivo.\n"); return; }
+    *lista=NULL;
+    Aeronave temp;
+    while(fread(&temp,sizeof(Aeronave),1,f)){
+        Aeronave *n = malloc(sizeof(Aeronave));
+        *n=temp;
+        n->prox=*lista;
+        *lista=n;
+    }
+    fclose(f);
+    printf("Carregado.\n");
 }
