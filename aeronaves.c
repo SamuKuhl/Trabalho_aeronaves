@@ -22,4 +22,31 @@ a.id = totalAeronaves + 1;
 printf("Modelo da aeronave: ");
 lerString(a.modelo, 50);
 
+frota[totalAeronaves++] = a;
+
+printf("Aeronave cadastrada \n");
+}
+
+void listarAeronaves() {
+    if (totalAeronaves == 0) {
+        printf("Nenhuma aeronave cadastrada\n");
+        return;
+    }
+
+    for(int i = 0; i < totalAeronaves; i++){
+        printf("ID: %d | Modelo: %s\n", frota[i].id, frota[i].modelo);
+
+    }
+}
+
+void removerAeronave(){
+
+}
+
+void buscarAeronave(){
+
+}
+
+void editarAeronave(){
+    
 }
